@@ -9,6 +9,8 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import useThemeStore from "./store/useThemeStore.js";
+import CreatePollsPage from "./pages/CreatePollsPage.jsx";
+import ShowPollsPage from "./pages/ShowPollsPage.jsx";
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth, isAdmin } = useAuthStore();
   const { theme, setTheme } = useThemeStore();
@@ -25,9 +27,8 @@ const App = () => {
     );
   }
 
-  console.log(authUser);
   return (
-    <div data-theme={theme}>
+    <div className="min-h-screen" data-theme={theme}>
       <Navbar />
       <Routes>
         <Route
@@ -45,6 +46,18 @@ const App = () => {
         <Route
           path="/profile"
           element={authUser ? <ProfilePage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/create-poll"
+          element={
+            authUser && isAdmin ? <CreatePollsPage /> : <Navigate to="/" />
+          }
+        />
+        <Route
+          path="/show-polls"
+          element={
+            authUser && isAdmin ? <ShowPollsPage /> : <Navigate to="/" />
+          }
         />
       </Routes>
 

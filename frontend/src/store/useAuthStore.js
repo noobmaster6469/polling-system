@@ -25,7 +25,7 @@ export const useAuthStore = create((set) => ({
     try {
       const res = await axiosInstance.post("auth/signup", data);
       toast.success("Successfully signed in");
-      set({ authUser: res.data });
+      set({ authUser: res.data, isAdmin: res.data.isAdmin });
     } catch (error) {
       toast.error(error.response?.data?.message);
     } finally {
@@ -38,7 +38,7 @@ export const useAuthStore = create((set) => ({
     try {
       const res = await axiosInstance.post("auth/login", data);
       toast.success("Successfully logged in");
-      set({ authUser: res.data });
+      set({ authUser: res.data, isAdmin: res.data.isAdmin });
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
